@@ -11,7 +11,7 @@ const createBlog = async (req, res) => {
         content,
       });
   
-      // console.log("Blog Created", blog);
+      console.log("Blog Created", blog);
   
       res.status(201).json(blog);
     } catch (error) {
@@ -31,4 +31,40 @@ const createBlog = async (req, res) => {
     }
   };
 
-  module.exports = {createBlog, getAllBlogs};
+  const updateBlog = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const blogId = req.user.id;
+      const updatedData = req.body;
+  
+      const blog = await blogService.updateBlog(id, blogId, updatedData);
+      console.log("blog updated", blog);
+  
+      if (!blog) {
+        return res.status(404).json({ message: "Blog not found" }); //NOT FOUND
+      } else {
+        res.status(200).json(blog);
+      }
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };
+
+  const deleteBlog = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const blogId = req.user.id;
+  
+      const blog = await blogService.deleteBlog(id, blogId);
+  
+      if (!blog) {
+        return res.status(404).json({ message: "Task Not Found" }); //NOT FOUND
+      } else {
+        res.status(204).send()
+      }
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };
+
+  module.exports = {createBlog, getAllBlogs, updateBlog, deleteBlog};

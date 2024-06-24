@@ -1,4 +1,4 @@
-const { createBlog } = require("../controllers/blogController");
+
 const Blog = require("../models/Blog");
 
 const createBlog = async (blogData) => {
@@ -21,4 +21,28 @@ const createBlog = async (blogData) => {
     }
   };
 
-module.exports = {createBlog, getAllBlogs}
+  const updateBlog = async(id, blogId, updatedData) => {
+    try{
+const blog = await Blog.findOneAndUpdate(
+    {_id: id, author: blogId},
+    {$set: updatedData},
+    {new: true}
+);
+return blog
+    } catch(error){
+        throw error;
+    }
+};
+
+const deleteBlog = async(id, blogId) => {
+    try{
+const blog = await Blog.findOneAndDelete(
+    {_id: id, author: blogId}
+);
+return blog;
+    } catch(error){
+        throw error;
+    }
+}
+
+module.exports = {createBlog, getAllBlogs, updateBlog, deleteBlog}
