@@ -22,4 +22,33 @@ return user;
     }
 };
 
-module.exports = {register}
+const login = async(userData) => {
+    try{
+        const {email, password} = userData;
+
+        const user = await User.findOne({email});
+        console.log(user)
+
+        if(!user){
+             throw new error("User is not found");
+        };
+
+        const isMatch = await user.comparePassword(password);
+        console.log('isMatched', isMatch)
+        
+
+        if(!isMatch){
+             throw new Error("Invalid Credentials");
+        };
+
+        const token = jwt.sign({id: user._id},process.env.JWT_SECRET)
+        return {token, user}
+
+        //password check
+
+   }catch(error){
+        throw error
+    }
+}
+
+module.exports = {register, login}
