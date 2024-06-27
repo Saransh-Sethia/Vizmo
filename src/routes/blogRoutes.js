@@ -7,6 +7,8 @@ router.post('/',authenticateToken, blogController.createBlog);
 
 router.get('/',authenticateToken, blogController.getAllBlogs);
 
+// router.get('/',authenticateToken, blogController.filterBlogs);
+
 router.put('/:id', authenticateToken, blogController.updateBlog);
 
 router.delete('/:id', authenticateToken, blogController.deleteBlog);

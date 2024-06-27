@@ -13,8 +13,17 @@ const createBlog = async (blogData) => {
 
 const getAllBlogs = async (blogId) => {
   try {
-    const blogs = await Blog.find({author : blogId});
+    const blogs = await Blog.find({ author: blogId});
     // console.log("All Blogs", blogs)
+    return blogs;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const filterBlogs = async (blogId, title) => {
+  try {
+    const blogs = await Blog.find({ author: blogId, title: title});
     return blogs;
   } catch (error) {
     throw error;
@@ -57,6 +66,7 @@ const getSingleBlog = async (id) => {
 module.exports = {
   createBlog,
   getAllBlogs,
+  filterBlogs,
   updateBlog,
   deleteBlog,
   getSingleBlog,

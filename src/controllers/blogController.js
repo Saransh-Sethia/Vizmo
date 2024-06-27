@@ -22,10 +22,22 @@ const createBlog = async (req, res) => {
 
 const getAllBlogs = async (req, res) => {
   try {
-    
     const blogId = req.user.id;
+    console.log('query', req.query)
     const blogs = await blogService.getAllBlogs(blogId);
-    console.log(req.query)
+    res.status(200).json(blogs);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const filterBlogs = async (req, res) => {
+  try {
+    const blogId =  req.user.id;
+    const title = req.query.title;
+    
+    const blogs = await blogService.filterBlogs(blogId, title);
+    console.log('query', req.query)
     res.status(200).json(blogs);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -82,6 +94,7 @@ const getSingleBlog = async (req, res) => {
 module.exports = {
   createBlog,
   getAllBlogs,
+  filterBlogs,
   updateBlog,
   deleteBlog,
   getSingleBlog,
