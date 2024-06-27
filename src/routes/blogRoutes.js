@@ -11,4 +11,6 @@ router.put('/:id', authenticateToken, blogController.updateBlog);
 
 router.delete('/:id', authenticateToken, blogController.deleteBlog);
 
+router.get('/:id', authenticateToken, blogController.getSingleBlog)
+
 module.exports = router;
