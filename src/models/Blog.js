@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const blogSchema = new mongoose.Schema({
     author: {
-        type: mongoose.Schema.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true
     },
@@ -16,7 +16,8 @@ const blogSchema = new mongoose.Schema({
         required: true,
     },
 
-},{
+},
+{
     timestamps: true,
 });
 

@@ -11,15 +11,16 @@ const createBlog = async (blogData) => {
   }
 };
 
-const getAllBlogs = async (blogId, query) => {
+const getAllBlogs = async (blogId) => {
   try {
-    const blogs = await Blog.find({ author: blogId });
+    const blogs = await Blog.find({author : blogId});
     // console.log("All Blogs", blogs)
     return blogs;
   } catch (error) {
     throw error;
   }
 };
+
 
 const updateBlog = async (id, blogId, updatedData) => {
   try {
